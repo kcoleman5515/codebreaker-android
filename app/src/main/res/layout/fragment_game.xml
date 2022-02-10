@@ -7,7 +7,7 @@
   android:layout_height="match_parent"
   tools:context=".controller.GameFragment">
 
-<!--  This is a comment.-->
+  <!--  This is a comment.-->
   <ListView
     android:id="@+id/guesses"
     android:layout_width="0dp"
