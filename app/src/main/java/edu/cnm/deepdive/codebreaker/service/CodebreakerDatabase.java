@@ -6,6 +6,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
+import edu.cnm.deepdive.codebreaker.model.dao.GameDao;
+import edu.cnm.deepdive.codebreaker.model.dao.GuessDao;
 import edu.cnm.deepdive.codebreaker.model.entity.Game;
 import edu.cnm.deepdive.codebreaker.model.entity.Guess;
 import edu.cnm.deepdive.codebreaker.service.CodebreakerDatabase.Converters;
@@ -31,6 +33,11 @@ public abstract class CodebreakerDatabase extends RoomDatabase {
   public static CodebreakerDatabase getInstance() {
     return InstanceHolder.INSTANCE;
   }
+
+  public abstract GameDao getGameDao();
+
+  public abstract GuessDao getGuessDao();
+
   private static class InstanceHolder {
 
     private static final CodebreakerDatabase INSTANCE = Room.

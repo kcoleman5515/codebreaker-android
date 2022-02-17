@@ -20,6 +20,7 @@ import edu.cnm.deepdive.codebreaker.adapter.CodeCharacterAdapter;
 import edu.cnm.deepdive.codebreaker.databinding.FragmentGameBinding;
 import edu.cnm.deepdive.codebreaker.model.entity.Game;
 import edu.cnm.deepdive.codebreaker.model.entity.Guess;
+import edu.cnm.deepdive.codebreaker.model.pojo.GameWithGuesses;
 import edu.cnm.deepdive.codebreaker.viewmodel.GameViewModel;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,7 +61,7 @@ public class GameFragment extends Fragment {
         .observe(getViewLifecycleOwner(), this::updateGameDisplay);
   }
 
-  private void updateGameDisplay(Game game) {
+  private void updateGameDisplay(GameWithGuesses game) {
     codeLength = game.getLength();
     for (int i = 0; i < codeLength; i++) {
      if (game.getGuesses().isEmpty()) {
