@@ -9,12 +9,15 @@
 
   <TextView
     android:id="@+id/guess_number"
-    android:layout_width="wrap_content"
+    android:layout_width="@dimen/guess_number_width"
     android:layout_height="0dp"
-    android:layout_margin="@dimen/half_static_spacing"
+    android:layout_marginVertical="@dimen/half_static_spacing"
+    android:layout_marginHorizontal="@dimen/half_dynamic_spacing"
     android:includeFontPadding="false"
     android:autoSizeTextType="uniform"
+    android:textAlignment="textEnd"
     android:contentDescription="@string/guess_number"
+    style="@style/GuessNumber"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +53,7 @@
     style="@style/MatchCount"
     android:contentDescription="@string/exact_matches"
     app:layout_constraintTop_toTopOf="@id/matches_container"
-    app:layout_constraintLeft_toLeftOf="@id/swatch_container"
+    app:layout_constraintLeft_toLeftOf="@id/matches_container"
     tools:text="0"/>
 
   <TextView
