@@ -8,7 +8,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,9 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.snackbar.Snackbar;
 import edu.cnm.deepdive.codebreaker.R;
 import edu.cnm.deepdive.codebreaker.adapter.CodeCharacterAdapter;
+import edu.cnm.deepdive.codebreaker.adapter.GuessAdapter;
 import edu.cnm.deepdive.codebreaker.databinding.FragmentGameBinding;
-import edu.cnm.deepdive.codebreaker.model.entity.Game;
-import edu.cnm.deepdive.codebreaker.model.entity.Guess;
 import edu.cnm.deepdive.codebreaker.model.pojo.GameWithGuesses;
 import edu.cnm.deepdive.codebreaker.viewmodel.GameViewModel;
 import java.util.HashMap;
@@ -64,16 +62,15 @@ public class GameFragment extends Fragment {
   private void updateGameDisplay(GameWithGuesses game) {
     codeLength = game.getLength();
     for (int i = 0; i < codeLength; i++) {
-     if (game.getGuesses().isEmpty()) {
-       spinners[i].setSelection(0);
-     }
+      if (game.getGuesses().isEmpty()) {
+        spinners[i].setSelection(0);
+      }
       spinners[i].setVisibility(View.VISIBLE);
     }
     for (int i = codeLength; i < spinners.length; i++) {
       spinners[i].setVisibility(View.GONE);
     }
-    ArrayAdapter<Guess> adapter = new ArrayAdapter<>(getContext(),
-        android.R.layout.simple_list_item_1, game.getGuesses());
+    GuessAdapter adapter = new GuessAdapter(getContext(), colorValueMap, colorLabelMap, game);
     binding.guesses.setAdapter(adapter);
     binding.guessControls.setVisibility(game.isSolved() ? View.GONE : View.VISIBLE);
   }
