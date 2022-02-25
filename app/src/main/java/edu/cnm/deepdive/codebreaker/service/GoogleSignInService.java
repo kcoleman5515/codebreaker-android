@@ -2,8 +2,10 @@ package edu.cnm.deepdive.codebreaker.service;
 
 import android.app.Application;
 import android.content.Intent;
+import android.util.Log;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -49,7 +51,7 @@ public class GoogleSignInService {
         .create((SingleEmitter<GoogleSignInAccount> emitter) ->
             client
                 .silentSignIn()
-                .addOnSuccessListener((account) -> {/* TODO Log account for debugging */})
+                .addOnSuccessListener(this::logAccount)
                 .addOnSuccessListener(emitter::onSuccess)
                 .addOnFailureListener(emitter::onError)
 
@@ -59,7 +61,7 @@ public class GoogleSignInService {
 
   public Single<String> refreshBearerToken() {
     return refresh()
-        .map((account) -> String.format(BEARER_TOKEN_FORMAT, account.getIdToken()));
+        .map((account) -> getBearerToken(account));
   }
 
   public void startSignIn(ActivityResultLauncher<Intent> launcher) {
@@ -73,7 +75,7 @@ public class GoogleSignInService {
             Task<GoogleSignInAccount> task =
                 GoogleSignIn.getSignedInAccountFromIntent(result.getData());
             GoogleSignInAccount account = task.getResult(ApiException.class);
-            // TODO Log result
+            logAccount(account);
             emitter.onSuccess(account);
           } catch (ApiException e) {
             emitter.onError(e);
@@ -92,6 +94,17 @@ public class GoogleSignInService {
 
         )
         .subscribeOn(Schedulers.io());
+  }
+
+  private void logAccount(GoogleSignInAccount account) {
+    if (account != null) {
+      Log.d(getClass().getSimpleName(), (account.getIdToken() != null) ? getBearerToken(account):"(none)" );
+    }
+  }
+
+  @NonNull
+  private String getBearerToken(GoogleSignInAccount account) {
+    return String.format(BEARER_TOKEN_FORMAT, account.getIdToken());
   }
 
   private static class InstanceHolder {
