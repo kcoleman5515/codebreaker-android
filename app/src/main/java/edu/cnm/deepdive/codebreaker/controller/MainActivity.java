@@ -6,15 +6,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import edu.cnm.deepdive.codebreaker.R;
 import edu.cnm.deepdive.codebreaker.databinding.ActivityMainBinding;
 import edu.cnm.deepdive.codebreaker.viewmodel.LoginViewModel;
@@ -68,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
     if (itemId == R.id.settings) {
       Intent intent = new Intent(this, SettingsActivity.class);
       startActivity(intent);
+      handled = true;
+    } else if (itemId == R.id.sign_out) {
+      viewModel.signOut();
       handled = true;
     } else {
       handled = super.onOptionsItemSelected(item);
