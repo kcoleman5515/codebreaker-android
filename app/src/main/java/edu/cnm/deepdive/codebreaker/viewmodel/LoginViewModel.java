@@ -16,7 +16,7 @@ import edu.cnm.deepdive.codebreaker.service.GoogleSignInService;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class LoginViewModel extends AndroidViewModel implements DefaultLifecycleObserver{
+public class LoginViewModel extends AndroidViewModel implements DefaultLifecycleObserver {
 
   private final GoogleSignInService signInService;
   private final MutableLiveData<GoogleSignInAccount> account;
@@ -42,11 +42,12 @@ public class LoginViewModel extends AndroidViewModel implements DefaultLifecycle
   }
 
   public void refresh() {
+    throwable.setValue(null);
     Disposable disposable = signInService
         .refresh()
         .subscribe(
             account::postValue,
-            (throwable) -> postThrowable(null)
+            (throwable) -> account.postValue(null)
         );
     pending.add(disposable);
   }
@@ -56,6 +57,7 @@ public class LoginViewModel extends AndroidViewModel implements DefaultLifecycle
   }
 
   public void completeSignIn(ActivityResult result) {
+    throwable.setValue(null);
     Disposable disposable = signInService
         .completeSignIn(result)
         .subscribe(
@@ -66,6 +68,7 @@ public class LoginViewModel extends AndroidViewModel implements DefaultLifecycle
   }
 
   public void signOut() {
+    throwable.setValue(null);
     Disposable disposable = signInService
         .signOut()
         .doFinally(() -> account.postValue(null))
@@ -73,6 +76,7 @@ public class LoginViewModel extends AndroidViewModel implements DefaultLifecycle
             () -> {},
             this::postThrowable
         );
+    pending.add(disposable);
   }
 
   @Override

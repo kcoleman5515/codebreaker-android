@@ -13,7 +13,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import edu.cnm.deepdive.codebreaker.BuildConfig;
-import io.reactivex.rxjava3.annotations.SchedulerSupport;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.core.SingleEmitter;
@@ -98,7 +97,8 @@ public class GoogleSignInService {
 
   private void logAccount(GoogleSignInAccount account) {
     if (account != null) {
-      Log.d(getClass().getSimpleName(), (account.getIdToken() != null) ? getBearerToken(account):"(none)" );
+      Log.d(getClass().getSimpleName(),
+          (account.getIdToken() != null) ? getBearerToken(account) : "(none)");
     }
   }
 
