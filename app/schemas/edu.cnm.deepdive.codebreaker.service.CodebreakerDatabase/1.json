@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b33027d02f26acd4d0685c2d09d2348f",
+    "identityHash": "fb5a28d9c3ca79d9d448d2f571791683",
     "entities": [
       {
         "tableName": "Game",
@@ -150,10 +150,15 @@
         ]
       }
     ],
-    "views": [],
+    "views": [
+      {
+        "viewName": "game_summary",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT\n  gs.length,\n  COUNT(*) AS count_games,\n  MIN(gs.guess_count) AS min_guesses,\n  MAX(gs.guess_count) AS max_guesses,\n  AVG(gs.guess_count) AS avg_guesses,\n  MIN(gs.last_guess_timestamp - gs.first_guess_timestamp) AS min_time,\n  MAX(gs.last_guess_timestamp - gs.first_guess_timestamp) AS max_time,\n  AVG(gs.last_guess_timestamp - gs.first_guess_timestamp) AS avg_time\nFROM (\n SELECT\n  ga.length,\n  gu.game_id,\n  COUNT(*) AS guess_count,\n  MIN(gu.created) AS first_guess_timestamp,\n  MAX(gu.created) AS last_guess_timestamp\n FROM\n  guess AS gu\n  INNER JOIN game AS ga\n    ON gu.game_id = ga.game_id\n GROUP BY\n  ga.length,\n  gu.game_id\n) AS gs\nGROUP BY\n  gs.length"
+      }
+    ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b33027d02f26acd4d0685c2d09d2348f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fb5a28d9c3ca79d9d448d2f571791683')"
     ]
   }
 }
