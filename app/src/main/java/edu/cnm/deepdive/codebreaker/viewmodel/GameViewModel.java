@@ -60,6 +60,10 @@ public class GameViewModel extends AndroidViewModel implements DefaultLifecycleO
     return summary;
   }
 
+  public LiveData<Integer> getLength() {
+    return length;
+  }
+
   public void setLength(int length) {
     this.length.setValue(length);
   }
