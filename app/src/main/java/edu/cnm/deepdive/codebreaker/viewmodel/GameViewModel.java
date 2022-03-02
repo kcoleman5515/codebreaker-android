@@ -38,7 +38,7 @@ public class GameViewModel extends AndroidViewModel implements DefaultLifecycleO
     codeLengthPrefKey = application.getString(R.string.code_length_pref_key);
     codeLengthPrefDefault = application.getResources().getInteger(R.integer.code_length_pref_default);
     game = new MutableLiveData<>();
-    length = new MutableLiveData<>();
+    length = new MutableLiveData<>(getCodeLengthPrefDefault());
     summary = Transformations.switchMap(length, repository::getSummary);
     throwable = new MutableLiveData<>();
     pending = new CompositeDisposable();
