@@ -10,6 +10,7 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 import edu.cnm.deepdive.codebreaker.model.entity.Game;
 import edu.cnm.deepdive.codebreaker.model.pojo.GameWithGuesses;
+import edu.cnm.deepdive.codebreaker.model.view.GamePerformance;
 import edu.cnm.deepdive.codebreaker.model.view.GameSummary;
 import io.reactivex.rxjava3.core.Single;
 import java.util.Collection;
@@ -52,6 +53,15 @@ public interface GameDao {
   @Query("SELECT * FROM game WHERE length = :length ORDER BY created DESC")
   LiveData<List<Game>>  select(int length);
 
+  @SuppressWarnings("AndroidUnresolvedRoomSqlReference")
   @Query("SELECT * FROM game_summary WHERE length = :length")
   LiveData<GameSummary> getSummary(int length);
+
+  @SuppressWarnings("AndroidUnresolvedRoomSqlReference")
+  @Query("SELECT * FROM game_performance WHERE length = :length ORDER BY duration ASC")
+  LiveData<List<GamePerformance>> getRankingsByDuration(int length);
+
+  @SuppressWarnings("AndroidUnresolvedRoomSqlReference")
+  @Query("SELECT * FROM game_performance WHERE length = :length ORDER BY guess_count ASC, duration ASC")
+  LiveData<List<GamePerformance>> getRankingsByGuessCount(int length);
 }
