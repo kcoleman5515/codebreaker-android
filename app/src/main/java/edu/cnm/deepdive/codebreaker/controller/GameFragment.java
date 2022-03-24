@@ -61,6 +61,7 @@ public class GameFragment extends Fragment {
   }
 
   private void updateGameDisplay(GameWithGuesses game) {
+    binding.spinners.setVisibility(View.INVISIBLE);
     codeLength = game.getLength();
     for (int i = 0; i < codeLength; i++) {
       if (game.getGuesses().isEmpty()) {
@@ -74,6 +75,7 @@ public class GameFragment extends Fragment {
     GuessAdapter adapter = new GuessAdapter(getContext(), colorValueMap, colorLabelMap, game);
     binding.guesses.setAdapter(adapter);
     binding.guesses.scrollToPosition(adapter.getItemCount() - 1);
+    binding.spinners.setVisibility(View.VISIBLE);
     binding.guessControls.setVisibility(game.isSolved() ? View.GONE : View.VISIBLE);
   }
 
