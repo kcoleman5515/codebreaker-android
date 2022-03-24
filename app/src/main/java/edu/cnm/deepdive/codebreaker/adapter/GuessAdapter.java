@@ -16,7 +16,6 @@ import java.util.Map;
 
 public class GuessAdapter extends RecyclerView.Adapter<Holder> {
 
-  // TODO: Add fields for context, list of guesses, etc.
   private final LayoutInflater inflater;
   private final Map<Character, Integer> colorValueMap;
   private final Map<Character, String> colorLabelMap;
