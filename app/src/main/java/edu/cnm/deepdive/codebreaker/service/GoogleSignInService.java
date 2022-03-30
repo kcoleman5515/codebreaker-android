@@ -53,7 +53,6 @@ public class GoogleSignInService {
 //                .addOnSuccessListener(this::logAccount)
                 .addOnSuccessListener(emitter::onSuccess)
                 .addOnFailureListener(emitter::onError)
-
         )
         .observeOn(Schedulers.io());
   }
