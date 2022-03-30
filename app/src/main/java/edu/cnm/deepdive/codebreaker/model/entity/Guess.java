@@ -39,7 +39,6 @@ public class Guess {
   @Ignore
   private String serviceKey;
 
-  // TODO Add converter for date-to-long
   @Expose
   @NonNull
   private Date created;
